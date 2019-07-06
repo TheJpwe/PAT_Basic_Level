@@ -90,6 +90,7 @@ ipch/
 *.vspx
 *.sap
 *.vcxproj
+*.filters
 
 # TFS 2012 Local Workspace
 $tf/
