@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 
 typedef struct HNode *MaxHeap;
@@ -30,18 +31,18 @@ int main()
 	scanf("%d", &N);
 
 	int m = 1, n = 1;
-	while (m*n<N)
+	for (int i = sqrt((double)N); i >= 1; i--)
 	{
-		if (m==n)
+		if (N % i == 0)
 		{
-			m++;
+			n = i;
+			break;
 		}
-		else
-		{
-			n++;
-		}
-
 	}
+
+	m = N / n;
+
+	//printf("%d %d\n", m, n);
 
 	MaxHeap H;
 
@@ -78,8 +79,9 @@ int main()
 	//for (int i = 0; i < H->size; i++)
 	//{
 	//	printf("%d ", H->data[i]);
-	//	printf("\n");
+	//	
 	//}
+	//printf("\n");
 
 	//将排好序的数填入螺旋矩阵
 
@@ -87,41 +89,57 @@ int main()
 	for ( index = 0; index < m; index++)
 	{
 		int i = index, j;
-		for ( j = i; j < n-i; j++)
+		if (i < m)
 		{
-			result[i][j] = DeleteMax(H);
+			for ( j = i; j < n-i; j++)
+			{
+				result[i][j] = DeleteMax(H);
 			
+			}
 		}
+		
 
 		j = n - 1 - index;
-		for ( i = index+1; i < m-index; i++)
+		if (j < n && j >= 0)
 		{
+			for ( i = index+1; i < m-index; i++)
+			{
 			
 
-			result[i][j] =DeleteMax(H);
+				result[i][j] =DeleteMax(H);
 
 			
+			}
 		}
+		
 
 		i = m - 1 - index;
-		for ( j = n - 1 - index - 1; j >= index; j--)
+		if (i  > index)
 		{
+			for ( j = n - 1 - index - 1; j >= index; j--)
+			{
 
 
-			result[i][j] = DeleteMax(H);
+				result[i][j] = DeleteMax(H);
 
 			
+			}
 		}
+		
 
 		j = index;
-		for ( i = m - 1 - index - 1; i > index; i--)
+		if (j < n - index - 1)
 		{
+			for ( i = m - 1 - index - 1; i > index; i--)
+			{
 
 			
-			result[i][j] = DeleteMax(H);
+				result[i][j] = DeleteMax(H);
 			
 
+			}
 		}
+		
 
 	}
 
